@@ -35,7 +35,6 @@ getCountryData('Germany');
 ///////////////////////////////////////
 */
 
-/*
 ///////////////////////////////////////
 const renderCountry = function (data, className = '') {
   const html = `<article class="country ${className}">
@@ -56,7 +55,7 @@ const renderCountry = function (data, className = '') {
   countriesContainer.style.opacity = 1;
 };
 
-
+/*
 const getCountryAndNeighbour = function (country) {
   //AJAX call country 1
   const request = new XMLHttpRequest();
@@ -102,28 +101,8 @@ setTimeout(() => {
     }, 1000);
   }, 1000);
 }, 1000);
-///////////////////////////////////////
+
 */
-
-///////////////////////////////////////
-const renderCountry = function (data, className = '') {
-  const html = `<article class="country ${className}">
-  <img class="country__img" src="${data.flags.png}" />
-  <div class="country__data">
-  <h3 class="country__name">${data.name.common}</h3>
-    <h4 class="country__region">${data.region}</h4>
-    <p class="country__row"><span>👫</span>${(
-      +data.population / 1000000
-    ).toFixed(1)} people</p>
-    <p class="country__row"><span>⏲</span>${data.timezones[0]}</p>
-    <p class="country__row"><span>🏛</span>${data.capital}</p>
-    
-  </div>
-</article>`;
-
-  countriesContainer.insertAdjacentHTML('beforeend', html);
-  countriesContainer.style.opacity = 1;
-};
 
 // const getCountryData = function (country) {
 //   fetch(`https://restcountries.com/v3.1/name/${country}`)
@@ -139,9 +118,20 @@ const renderCountry = function (data, className = '') {
 // getCountryData('Bangladesh');
 
 const getCountryData = function (country) {
+  //Country 1
   fetch(`https://restcountries.com/v3.1/name/${country}`)
     .then(response => response.json())
-    .then(data => renderCountry(data[0]));
+    .then(data => {
+      renderCountry(data[0]);
+
+      //Country (2)
+      const neighbour = data[0].borders[0];
+
+      if (!neighbour) return;
+      return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
+    })
+    .then(response => response.json())
+    .then(data => renderCountry(data[0], 'neighbour'));
 };
 
-getCountryData('Bangladesh');
+getCountryData('usa');
