@@ -55,6 +55,8 @@ const renderCountry = function (data, className = '') {
   countriesContainer.insertAdjacentHTML('beforeend', html);
   countriesContainer.style.opacity = 1;
 };
+
+
 const getCountryAndNeighbour = function (country) {
   //AJAX call country 1
   const request = new XMLHttpRequest();
@@ -71,6 +73,7 @@ const getCountryAndNeighbour = function (country) {
     //Get neighbour country (2)
     const [neighbour] = data.borders;
 
+    if(!neighbour) return;
     const request2 = new XMLHttpRequest();
     request2.open('GET', `https://restcountries.com/v3.1/alpha/${neighbour}`);
     request2.send();
@@ -101,3 +104,44 @@ setTimeout(() => {
 }, 1000);
 ///////////////////////////////////////
 */
+
+///////////////////////////////////////
+const renderCountry = function (data, className = '') {
+  const html = `<article class="country ${className}">
+  <img class="country__img" src="${data.flags.png}" />
+  <div class="country__data">
+  <h3 class="country__name">${data.name.common}</h3>
+    <h4 class="country__region">${data.region}</h4>
+    <p class="country__row"><span>👫</span>${(
+      +data.population / 1000000
+    ).toFixed(1)} people</p>
+    <p class="country__row"><span>⏲</span>${data.timezones[0]}</p>
+    <p class="country__row"><span>🏛</span>${data.capital}</p>
+    
+  </div>
+</article>`;
+
+  countriesContainer.insertAdjacentHTML('beforeend', html);
+  countriesContainer.style.opacity = 1;
+};
+
+// const getCountryData = function (country) {
+//   fetch(`https://restcountries.com/v3.1/name/${country}`)
+//     .then(function (response) {
+//       return response.json();
+//     })
+//     .then(function (data) {
+//       console.log(data);
+//       renderCountry(data[0]);
+//     });
+// };
+
+// getCountryData('Bangladesh');
+
+const getCountryData = function (country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then(response => response.json())
+    .then(data => renderCountry(data[0]));
+};
+
+getCountryData('Bangladesh');
