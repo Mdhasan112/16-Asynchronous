@@ -259,6 +259,7 @@ whereAmI(-33.933, 18.474);
 ///////////////////////////////////////
 */
 
+/*
 ///////////////////////////////////////
 // console.log('Test Start');
 // setTimeout(() => console.log('0 sec timer'), 0);
@@ -268,61 +269,18 @@ whereAmI(-33.933, 18.474);
 //   console.log(res);
 // });
 // console.log('Test end');
-//////////////////////////////////////
-// function myDisplayer(some) {
-//   console.log(some);
-// }
 
-// function myCalculator(num1, num2) {
-//   let sum = num1 + num2;
-//   return sum;
-// }
+const lotteryPromise = new Promise(function (resolve, reject) {
+  console.log('Lottery draw is happening');
+  setTimeout(function () {
+    if (Math.random() >= 0.5) {
+      resolve('You win 💰');
+    } else {
+      reject('You lost your money💩');
+    }
+  }, 2000);
+});
 
-// let result = myCalculator(5, 5);
-// myDisplayer(result);
-
-const display = function (some) {
-  console.log(some);
-};
-const myCal = function (num1, num2, callback) {
-  const result = num1 + num2;
-  if (callback) callback(result);
-};
-
-myCal(10, 20, display);
-
-////////////////////////////////
-// const paymentSuccess = true;
-// const marks = 70;
-// const enroll = function (callback) {
-//   console.log('Course enrollment is in progress');
-
-//   setTimeout(function () {
-//     if (paymentSuccess) {
-//       callback();
-//     } else {
-//       console.log('Payment failed');
-//     }
-//   }, 3000);
-// };
-
-// const progress = function (callback) {
-//   console.log('Course enrollment is in progress');
-
-//   setTimeout(function () {
-//     if (marks >= 80) {
-//       callback();
-//     } else {
-//       console.log('you could not get enough marks to get the certificate');
-//     }
-//   }, 3000);
-// };
-
-// const getCertificate = function () {
-//   console.log('Preparing your certificate');
-//   setTimeout(function () {
-//     console.log('Congrats! you got the certificate');
-//   }, 2000);
-// };
-
-// enroll(progress);
+lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
+///////////////////////////////////////
+*/
