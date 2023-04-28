@@ -375,16 +375,41 @@ btn.addEventListener('click', whereAmI);
 ///////////////////////////////////////
 */
 
-const whereAmI = async function (country) {
-  // fetch(`https://restcountries.com/v3.1/name/${country}`).then(res =>
-  //   console.log(res)
-  // );
-
-  const res = await fetch(`https://restcountries.com/v3.1/name/${country}`);
-  console.log(res);
-  const data = await res.json();
-  console.log(data);
-  renderCountry(data[0]);
+/*
+///////////////////////////////////////
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
 };
-whereAmI('bangladesh');
+
+const whereAmI = async function () {
+  try {
+    //Geolocation
+    const pos = await getPosition();
+    const { latitude: lat, longitude: lng } = pos.coords;
+
+    //Reverse geocoding
+    const restGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+    if (!restGeo.ok) throw new Error('Problem getting location data');
+    const dataGeo = await restGeo.json();
+
+    //Country data
+    // fetch(`https://restcountries.com/v3.1/name/${country}`).then(res =>
+    //   console.log(res)
+    // );
+    const res = await fetch(
+      `https://restcountries.com/v3.1/name/${dataGeo.country}`
+    );
+    if (!res.ok) throw new Error('Problem getting country data');
+    const data = await res.json();
+    renderCountry(data[0]);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+whereAmI();
 console.log('First');
+///////////////////////////////////////
+*/
